@@ -32,7 +32,7 @@ app.post(
             .isEmpty(),
         check('email', 'Please enter a valid email').isEmail(),
         check(
-            'password' 
+            'password', 
             'Please enter a password with 6 or more characters'
         ).isLength({ min:6 })
     ],
