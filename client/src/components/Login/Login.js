@@ -18,21 +18,21 @@ const Login = ({ authenticateUser}) => {
         setUserData({
             ...userData,
             [name]: value
-        })
-    }
+        });
+    };
 
     const loginUser = async () => {
         const newUser = {
             email: email,
             password: password
-        }
+        };
 
         try {
             const config = {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }
+            };
 
             const body = JSON.stringify(newUser);
             const res = await axios.post('http://localhost:5000/api/login', body, config);
@@ -48,11 +48,11 @@ const Login = ({ authenticateUser}) => {
             setErrorData({
                 ...errors,
                 errors: error.response.data.errors
-            })
+            });
         }
 
             authenticateUser();
-        }
+        };
 
         return (
         <div>
@@ -64,6 +64,7 @@ const Login = ({ authenticateUser}) => {
                     name="email"
                     value={email}
                     onChange={e => onChange(e)} />
+		  
             </div>
             <div>
                 <input
@@ -72,6 +73,7 @@ const Login = ({ authenticateUser}) => {
                     name="password"
                     value={password}
                     onChange={e => onChange(e)} />
+		  
             </div>
             <div>
                 <button onClick={() => loginUser()}>Log In</button>
@@ -81,8 +83,7 @@ const Login = ({ authenticateUser}) => {
                 <div key={error.msg}>{error.msg}</div>)}
             </div>
         </div>
-    )
-
-}
+    );
+};
 
 export default Login;
