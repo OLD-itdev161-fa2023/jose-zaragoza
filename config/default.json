@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://josezaragoza:M)nd*DB1@cluster0.ausfbsv.mongodb.net/?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://josezaragoza:M)nd*DB1@cluster0.ausfbsv.mongodb.net/?retryWrites=true&w=majority",
+    "jwtSecret": "creatingajwttoken"
 }
