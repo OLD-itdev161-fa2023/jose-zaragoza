@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { userHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Login = ({ authenticateUser}) => {
     let history = useHistory();
@@ -82,7 +82,7 @@ const Login = ({ authenticateUser}) => {
             </div>
         </div>
     )
-    
+
 }
 
 export default Login;
