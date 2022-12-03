@@ -31,6 +31,9 @@ app.get('/', (req, res) =>
     res.send('http get request sent to root api endpoint')
 );
 
+																		 
+
+app.get('/api/', (req, res) => res.send('http get request sent to api'));																		 
 /**
  * @route POST api/users
  * @desc Register user
@@ -81,13 +84,14 @@ app.post(
             } catch (error) {
                 res.status(500).send('Server error');
             }
-        }
-    }
+        
+		}
+    } 
 );
 
 /**
  * @route GET api/auth
- * @desc Authenticate user
+ * @desc Authorize user
  */
 app.get('/api/auth', auth, async (req, res) => {
     try {
@@ -99,7 +103,7 @@ app.get('/api/auth', auth, async (req, res) => {
 });
 
 /**
- * @route POST api/users
+ * @route POST api/login
  * @desc Login user
  */
 app.post(
@@ -121,24 +125,32 @@ app.post(
                     return res
                     .status(400)
                     .json({ errors: [{ msg: 'Invalid email or password' }] });
-                }
+                
+				
+				
+				
+				
+				
+				
+				
+			}
 
-                // Check password
-                const match = await bcrypt.compare(password, user.password);
-                if (!match) {
-                    return res
-                    .status(400)
-                    .json({ errors: [{ msg: 'Invalid email or password' }] });
-                }
+			// Check password
+			const match = await bcrypt.compare(password, user.password);
+			if (!match) {
+				return res
+				.status(400)
+				.json({ errors: [{ msg: 'Invalid email or password' }] });
+			}
 
-                // Generate and return a JWT token
-                returnToken(user, res);
-                } catch (error) {
-                    res.status(500).send('Server error');
-                }
-            }
-        }
-    );
+			// Generate and return a JWT token
+			returnToken(user, res);
+			} catch (error) {
+				res.status(500).send('Server error');
+			}
+		}
+	}
+);
 
     const returnToken = (user, res) => {
         const payload = {
