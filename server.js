@@ -82,7 +82,7 @@ app.post(
                     }
                 };
 
-                jwt.sign{
+                jwt.sign(
                     payload,
                     config.get('jwtSecret'),
                     { expiresIn: '10hr' },
@@ -90,7 +90,7 @@ app.post(
                         if (err) throw err;
                         res.json({ token: token });
                     }
-                };
+                );
             } catch (error) {
                 res.status(500).send('Server error');
             }
