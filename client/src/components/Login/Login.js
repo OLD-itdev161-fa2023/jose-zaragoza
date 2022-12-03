@@ -35,7 +35,7 @@ const Login = ({ authenticateUser}) => {
             }
 
             const body = JSON.stringify(newUser);
-            const res = await axios.post('http://localhost:5000/api/users', body, config);
+            const res = await axios.post('http://localhost:5000/api/login', body, config);
 
             // Store user data and redirect
             localStorage.setItem('token', res.data.token);
@@ -78,7 +78,7 @@ const Login = ({ authenticateUser}) => {
             </div>
             <div>
                 {errors && errors.map(error =>
-                    <div key={error.msg}>{error.msg}</div>)}
+                <div key={error.msg}>{error.msg}</div>)}
             </div>
         </div>
     )
