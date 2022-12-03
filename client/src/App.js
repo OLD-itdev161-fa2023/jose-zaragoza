@@ -64,6 +64,7 @@ logOut = () => {
       const authProps = {
         authenticateUser: this.authenticateUser
       }
+
       return (
         <Router>
           <div className="App">
@@ -99,11 +100,12 @@ logOut = () => {
 
               </Route>
               <Switch>
-                <Route exact path="/register"
-                render={() => <Register {...authprops} />} />
+                <Route 
+                  exact path="/register"
+                  render={() => <Register {...authProps} />} />
                 <Route
                   exact path="/login"
-                  render={() => <Login {...authprops} />} />
+                  render={() => <Login {...authProps} />} />
               </Switch>
             </main>
           </div>
