@@ -4,10 +4,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
+import PostList from './components/PostList/PostList';
+import Post from './components/Post/Post';
 
 class App extends React.Component {
   state = {
     posts: [],
+    post: null,
     token: null,
     user: null
   };
@@ -80,8 +83,15 @@ logOut = () => {
   this.setState({ user: null, token: null });
 }
 
+viewPost = post => {
+    console.log(`view ${post.title}`);
+    this.setState({
+      post: post
+    });
+  };
+
     render() {
-      let { user, posts, post, token } = this.state;
+      let { user, posts, post } = this.state;
     const authProps = {
       authenticateUser: this.authenticateUser
     };
@@ -119,12 +129,7 @@ logOut = () => {
                 {user ? (
                   <React.Fragment>
                     <div>Hello {user}!</div>
-                    <PostList
-                      posts={posts}
-                      clickPost={this.viewPost}
-                      deletePost={this.deletePost}
-                      editPost={this.editPost}
-                    />
+                    <PostList posts={posts} clickPost={this.viewPost} />
                   </React.Fragment>
                 ) : (
                   <React.Fragment>Please Register or Login</React.Fragment>
@@ -135,13 +140,6 @@ logOut = () => {
               </Route>
               <Route path="/new-post">
                 <CreatePost token={token} onPostCreated={this.onPostCreated} />
-              </Route>
-              <Route path="/edit-post/:postId">
-                <EditPost
-                  token={token}
-                  post={post}
-                  onPostUpdated={this.onPostUpdated}
-                />
               </Route>
               <Route
                 exact
