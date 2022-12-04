@@ -6,6 +6,8 @@ import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import PostList from './components/PostList/PostList';
 import Post from './components/Post/Post';
+import CreatePost from './components/Post/CreatePost';
+import EditPost from './components/Post/EditPost';
 
 class App extends React.Component {
   state = {
@@ -114,14 +116,40 @@ viewPost = post => {
     }
   };
 
-    render() {
-      let { user, posts, post } = this.state;
+ editPost = post => {
+    this.setState({
+      post: post
+    });
+  };
+
+  onPostCreated = post => {
+    const newPosts = [...this.state.posts, post];
+
+    this.setState({
+      posts: newPosts
+    });
+  };
+
+  onPostUpdated = post => {
+    console.log('updated post: ', post);
+    const newPosts = [...this.state.posts];
+    const index = newPosts.findIndex(p => p._id === post._id);
+
+    newPosts[index] = post;
+
+    this.setState({
+      posts: newPosts
+    });
+  };
+
+  render() {
+    let { user, posts, post, token } = this.state;
     const authProps = {
       authenticateUser: this.authenticateUser
     };
 
-      return (
-          <Router>
+    return (
+      <Router>
         <div className="App">
           <header className="App-header">
             <h1>GoodThings</h1>
@@ -153,10 +181,11 @@ viewPost = post => {
                 {user ? (
                   <React.Fragment>
                     <div>Hello {user}!</div>
-                    <PostList 
-                    posts={posts} 
-                    clickPost={this.viewPost} 
-                    deletePost={this.deletePost}
+                    <PostList
+                      posts={posts}
+                      clickPost={this.viewPost}
+                      deletePost={this.deletePost}
+                      editPost={this.editPost}
                     />
                   </React.Fragment>
                 ) : (
@@ -168,6 +197,13 @@ viewPost = post => {
               </Route>
               <Route path="/new-post">
                 <CreatePost token={token} onPostCreated={this.onPostCreated} />
+              </Route>
+              <Route path="/edit-post/:postId">
+                <EditPost
+                  token={token}
+                  post={post}
+                  onPostUpdated={this.onPostUpdated}
+                />
               </Route>
               <Route
                 exact
